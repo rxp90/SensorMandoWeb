@@ -17,6 +17,7 @@ import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
+import javax.persistence.UniqueConstraint;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 
@@ -25,7 +26,8 @@ import javax.validation.constraints.Size;
  * @author Raul
  */
 @Entity
-@Table(name = "RED")
+@Table(name = "RED", uniqueConstraints =
+@UniqueConstraint(columnNames = {"CANAL", "ID_RED"}))
 @NamedQueries({
     @NamedQuery(name = "Red.findAll", query = "SELECT r FROM Red r"),
     @NamedQuery(name = "Red.findById", query = "SELECT r FROM Red r WHERE r.id = :id"),
@@ -35,6 +37,7 @@ import javax.validation.constraints.Size;
     @NamedQuery(name = "Red.findByNombre", query = "SELECT r FROM Red r WHERE r.nombre = :nombre"),
     @NamedQuery(name = "Red.findByPuerto", query = "SELECT r FROM Red r WHERE r.puerto = :puerto")})
 public class Red implements Serializable {
+
     private static final long serialVersionUID = 1L;
     @Id
     @GeneratedValue(strategy = GenerationType.TABLE)
@@ -163,5 +166,4 @@ public class Red implements Serializable {
     public String toString() {
         return "com.pfc.sensormando.entity.Red[ id=" + id + " ]";
     }
-    
 }
