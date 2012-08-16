@@ -5,7 +5,7 @@
 package com.pfc.sensormando.entity;
 
 import java.io.Serializable;
-import java.util.Collection;
+import java.util.Set;
 import javax.persistence.Basic;
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
@@ -20,10 +20,7 @@ import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
-import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
-import javax.xml.bind.annotation.XmlRootElement;
-import javax.xml.bind.annotation.XmlTransient;
 
 /**
  *
@@ -31,7 +28,6 @@ import javax.xml.bind.annotation.XmlTransient;
  */
 @Entity
 @Table(name = "RECEPTOR")
-@XmlRootElement
 @NamedQueries({
     @NamedQuery(name = "Receptor.findAll", query = "SELECT r FROM Receptor r"),
     @NamedQuery(name = "Receptor.findById", query = "SELECT r FROM Receptor r WHERE r.id = :id"),
@@ -51,10 +47,10 @@ public class Receptor implements Serializable {
     @Column(name = "NOMBRE")
     private String nombre;
     @JoinColumn(name = "RED", referencedColumnName = "ID")
-    @ManyToOne(fetch = FetchType.LAZY)
+    @ManyToOne(fetch = FetchType.EAGER)
     private Red red;
-    @OneToMany(cascade = CascadeType.ALL, mappedBy = "idReceptor", fetch = FetchType.LAZY)
-    private Collection<Mando> mandoCollection;
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "idReceptor", fetch = FetchType.EAGER)
+    private Set<Mando> mandoSet;
 
     public Receptor() {
     }
@@ -95,13 +91,12 @@ public class Receptor implements Serializable {
         this.red = red;
     }
 
-    @XmlTransient
-    public Collection<Mando> getMandoCollection() {
-        return mandoCollection;
+    public Set<Mando> getMandoSet() {
+        return mandoSet;
     }
 
-    public void setMandoCollection(Collection<Mando> mandoCollection) {
-        this.mandoCollection = mandoCollection;
+    public void setMandoSet(Set<Mando> mandoSet) {
+        this.mandoSet = mandoSet;
     }
 
     @Override

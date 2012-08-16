@@ -17,9 +17,7 @@ import javax.persistence.ManyToOne;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
 import javax.persistence.Table;
-import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
-import javax.xml.bind.annotation.XmlRootElement;
 
 /**
  *
@@ -27,7 +25,6 @@ import javax.xml.bind.annotation.XmlRootElement;
  */
 @Entity
 @Table(name = "MANDO")
-@XmlRootElement
 @NamedQueries({
     @NamedQuery(name = "Mando.findAll", query = "SELECT m FROM Mando m"),
     @NamedQuery(name = "Mando.findById", query = "SELECT m FROM Mando m WHERE m.id = :id"),
@@ -47,7 +44,7 @@ public class Mando implements Serializable {
     @Column(name = "NOMBRE")
     private String nombre;
     @JoinColumn(name = "ID_RECEPTOR", referencedColumnName = "ID")
-    @ManyToOne(optional = false, fetch = FetchType.LAZY)
+    @ManyToOne(optional = false, fetch = FetchType.EAGER)
     private Receptor idReceptor;
 
     public Mando() {

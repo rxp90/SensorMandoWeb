@@ -11,7 +11,7 @@ import com.pfc.sensormando.facades.MandoFacadeLocal;
 import com.pfc.sensormando.facades.ReceptorFacadeLocal;
 import com.pfc.sensormando.facades.RedFacadeLocal;
 import java.util.ArrayList;
-import java.util.Collection;
+import java.util.Set;
 import java.util.List;
 import javax.ejb.EJB;
 import javax.faces.bean.ManagedBean;
@@ -55,8 +55,8 @@ public class AdministrarRedBean {
             Receptor receptorSeleccionado = receptorFacade.find(idReceptorSeleccionado);
             mando.setIdReceptor(receptorSeleccionado);
 
-            Collection<Mando> mandosReceptor = receptorSeleccionado.getMandoCollection();
-//            mandosReceptor.add(mando);
+            Set<Mando> mandosReceptor = receptorSeleccionado.getMandoSet();
+            mandosReceptor.add(mando);
 
             if (mandoFacade.create(mando)) {
                 exito = CORRECTO;
@@ -88,8 +88,8 @@ public class AdministrarRedBean {
         if (receptor != null) {
             Red redSeleccionada = redFacade.find(idRedSeleccionado);
             receptor.setRed(redSeleccionada);
-//            Collection<Receptor> receptoresRed = redSeleccionada.getReceptorCollection();
-//            receptoresRed.add(receptor);
+            Set<Receptor> receptoresRed = redSeleccionada.getReceptorSet();
+            receptoresRed.add(receptor);
             if (receptorFacade.create(receptor)) {
                 exito = CORRECTO;
             } else {

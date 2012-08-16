@@ -5,7 +5,7 @@
 package com.pfc.sensormando.entity;
 
 import java.io.Serializable;
-import java.util.Collection;
+import java.util.Set;
 import javax.persistence.Basic;
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -19,8 +19,6 @@ import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
-import javax.xml.bind.annotation.XmlRootElement;
-import javax.xml.bind.annotation.XmlTransient;
 
 /**
  *
@@ -28,7 +26,6 @@ import javax.xml.bind.annotation.XmlTransient;
  */
 @Entity
 @Table(name = "RED")
-@XmlRootElement
 @NamedQueries({
     @NamedQuery(name = "Red.findAll", query = "SELECT r FROM Red r"),
     @NamedQuery(name = "Red.findById", query = "SELECT r FROM Red r WHERE r.id = :id"),
@@ -38,7 +35,6 @@ import javax.xml.bind.annotation.XmlTransient;
     @NamedQuery(name = "Red.findByNombre", query = "SELECT r FROM Red r WHERE r.nombre = :nombre"),
     @NamedQuery(name = "Red.findByPuerto", query = "SELECT r FROM Red r WHERE r.puerto = :puerto")})
 public class Red implements Serializable {
-
     private static final long serialVersionUID = 1L;
     @Id
     @GeneratedValue(strategy = GenerationType.TABLE)
@@ -68,8 +64,8 @@ public class Red implements Serializable {
     @Size(min = 1, max = 20)
     @Column(name = "PUERTO")
     private String puerto;
-    @OneToMany(mappedBy = "red", fetch = FetchType.LAZY)
-    private Collection<Receptor> receptorCollection;
+    @OneToMany(mappedBy = "red", fetch = FetchType.EAGER)
+    private Set<Receptor> receptorSet;
 
     public Red() {
     }
@@ -135,13 +131,12 @@ public class Red implements Serializable {
         this.puerto = puerto;
     }
 
-    @XmlTransient
-    public Collection<Receptor> getReceptorCollection() {
-        return receptorCollection;
+    public Set<Receptor> getReceptorSet() {
+        return receptorSet;
     }
 
-    public void setReceptorCollection(Collection<Receptor> receptorCollection) {
-        this.receptorCollection = receptorCollection;
+    public void setReceptorSet(Set<Receptor> receptorSet) {
+        this.receptorSet = receptorSet;
     }
 
     @Override
@@ -168,4 +163,5 @@ public class Red implements Serializable {
     public String toString() {
         return "com.pfc.sensormando.entity.Red[ id=" + id + " ]";
     }
+    
 }

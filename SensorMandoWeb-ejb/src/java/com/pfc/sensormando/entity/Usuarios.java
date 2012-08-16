@@ -15,7 +15,6 @@ import javax.persistence.Table;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Pattern;
 import javax.validation.constraints.Size;
-import javax.xml.bind.annotation.XmlRootElement;
 
 /**
  *
@@ -23,9 +22,8 @@ import javax.xml.bind.annotation.XmlRootElement;
  */
 @Entity
 @Table(name = "USUARIOS")
-@XmlRootElement
 @NamedQueries({
-    @NamedQuery(name = "Usuarios.findAll", query = "SELECT u FROM Usuarios u"), 
+    @NamedQuery(name = "Usuarios.findAll", query = "SELECT u FROM Usuarios u"),
     @NamedQuery(name = "Usuarios.findDistinctUsername", query = "SELECT u FROM Usuarios u WHERE u.username!=:username"),
     @NamedQuery(name = "Usuarios.findByUsername", query = "SELECT u FROM Usuarios u WHERE u.username = :username"),
     @NamedQuery(name = "Usuarios.findByAdministrador", query = "SELECT u FROM Usuarios u WHERE u.administrador = :administrador"),
