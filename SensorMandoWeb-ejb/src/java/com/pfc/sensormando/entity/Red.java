@@ -18,7 +18,10 @@ import javax.persistence.NamedQuery;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.persistence.UniqueConstraint;
+import javax.validation.constraints.Max;
+import javax.validation.constraints.Min;
 import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Pattern;
 import javax.validation.constraints.Size;
 
 /**
@@ -47,15 +50,21 @@ public class Red implements Serializable {
     @Basic(optional = false)
     @NotNull
     @Column(name = "CANAL")
+    //0x0B - 0x1A
+    @Min(value = 11)
+    @Max(value = 26)
     private int canal;
     @Basic(optional = false)
     @NotNull
     @Column(name = "ID_RED")
+    @Min(value = 0)
+    @Max(value = 65535)
     private int idRed;
     @Basic(optional = false)
     @NotNull
-    @Size(min = 1, max = 20)
+    //@Size(min = 1, max = 20)
     @Column(name = "IP")
+    @Pattern(regexp = "^([01]?\\d\\d?|2[0-4]\\d|25[0-5])\\.([01]?\\d\\d?|2[0-4]\\d|25[0-5])\\.([01]?\\d\\d?|2[0-4]\\d|25[0-5])\\.([01]?\\d\\d?|2[0-4]\\d|25[0-5])$", message = "IP mal formada")
     private String ip;
     @Basic(optional = false)
     @NotNull
@@ -64,9 +73,10 @@ public class Red implements Serializable {
     private String nombre;
     @Basic(optional = false)
     @NotNull
-    @Size(min = 1, max = 20)
+    @Min(value = 1025)
+    @Max(value = 65535)
     @Column(name = "PUERTO")
-    private String puerto;
+    private Integer puerto;
     @OneToMany(mappedBy = "red", fetch = FetchType.EAGER)
     private Set<Receptor> receptorSet;
 
@@ -77,7 +87,7 @@ public class Red implements Serializable {
         this.id = id;
     }
 
-    public Red(Integer id, int canal, int idRed, String ip, String nombre, String puerto) {
+    public Red(Integer id, int canal, int idRed, String ip, String nombre, Integer puerto) {
         this.id = id;
         this.canal = canal;
         this.idRed = idRed;
@@ -126,11 +136,11 @@ public class Red implements Serializable {
         this.nombre = nombre;
     }
 
-    public String getPuerto() {
+    public Integer getPuerto() {
         return puerto;
     }
 
-    public void setPuerto(String puerto) {
+    public void setPuerto(Integer puerto) {
         this.puerto = puerto;
     }
 

@@ -20,6 +20,8 @@ import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
+import javax.validation.constraints.Max;
+import javax.validation.constraints.Min;
 import javax.validation.constraints.Size;
 
 /**
@@ -41,6 +43,8 @@ public class Receptor implements Serializable {
     @Basic(optional = false)
     @Column(name = "ID")
     private Integer id;
+    @Min(value = 0)
+    @Max(value = 65535)
     @Column(name = "DIRECCION")
     private Integer direccion;
     @Size(max = 20)
