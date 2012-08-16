@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:ui="http://java.sun.com/jsf/facelets"
+                xmlns:h="http://java.sun.com/jsf/html">
+    <h:form rendered="#{userControllerBean.loggedIn}" class="span3">
+        <div class="well">
+            <ul class="nav nav-list">
+                <li class="nav-header">Usuario</li>
+                <li>
+                    <h:link value="Ver/modificar mi perfil" outcome="perfil">
+                        <i class="icon-home pull-left"/>
+                    </h:link>
+                </li>
+                <li>
+                    <h:link value="Cambiar contraseña" outcome="cambiarPassword">
+                        <i class="icon-asterisk pull-left"/>
+                    </h:link>
+                </li>
+                <li>
+                    <h:link value="Juego Bouncing Ball" outcome="bouncingBall">
+                        <i class="icon-play pull-left"/>
+                    </h:link>
+                </li>
+                <h:panelGroup rendered="#{userControllerBean.admin}">
+                    <li class="nav-header">Administrador</li>
+                    <li>
+                        <h:commandLink value="Crear usuario"  action="registro">
+                            <i class="icon-plus pull-left"/>
+                        </h:commandLink>
+                    </li>
+                    <li>
+                        <h:link value="Modificar datos de un usuario" outcome="administrarUsuarios">
+                            <i class="icon-edit pull-left"/>
+                        </h:link>
+                    </li>
+                </h:panelGroup>
+                <li class="divider"></li>
+                <li>        
+                    <h:commandLink value="Cerrar sesión"  action="#{loginBean.logout()}">
+                        <i class="icon-off pull-left"/>
+                    </h:commandLink>
+                </li>
+            </ul>
+        </div>
+    </h:form>
+</ui:composition>

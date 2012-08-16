@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core">
+    <f:loadBundle basename="com.pfc.sensormando.resources.messages" var="msg"/>
+    <h:head>
+        <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+        <title>Sensor Mando</title>
+        <meta name="description" content="Aplicación web Sensor Mando" />
+        <meta name="author" content="Raúl García" />
+        <!--  [if lt IE 9]-->
+        <script src="http://html5shim.googlecode.com/svn/trunk/html5.js"></script>
+        <script src="http://java.com/js/deployJava.js"></script>
+
+        <!-- [endif] -->
+        <h:outputStylesheet name="bootstrap/css/bootstrap.min.css" />
+        <style>
+            body { padding-top: 60px; }
+        </style>
+        <h:outputStylesheet name="bootstrap/css/bootstrap-responsive.min.css" />
+    </h:head>
+    <h:body>    
+        <div class="navbar navbar-fixed-top">
+            <div class="navbar-inner">
+                <div class="container-fluid">
+                    <ui:insert name="navbar">
+                        <ui:include src="navbar.xhtml" />
+                    </ui:insert>
+                </div>
+            </div>
+        </div>
+        <div class="container">
+            <div class="row-fluid">
+                <ui:insert name="sidebar">
+                    <ui:include src="sidebar.xhtml"/>
+                </ui:insert>
+                <!--/.well -->
+                <noscript>
+                    <div class="alert alert-error">
+                        <h4 class="alert-heading"><h:outputText value="Error de JavaScript"/></h4>
+                        <h:outputText value="Parece que JavaScript está deshabilitado o no es soportado por tu navegador. Por favor, habilítalo para el correcto funcionamiento de la aplicación."/>
+                    </div>            
+                </noscript>
+                <ui:insert name="content">
+                    <ui:include src="content.xhtml" />
+                </ui:insert>
+            </div>
+        </div>
+
+        <footer id="footer">
+            <ui:insert name="footer">
+                <div class="container">
+                    <ui:include src="footer.xhtml"/>
+                </div>
+            </ui:insert>
+
+
+        </footer>
+        <script
+        src="https://ajax.googleapis.com/ajax/libs/jquery/1.7.2/jquery.min.js"></script>
+        <h:outputScript name="bootstrap/js/bootstrap.min.js" />
+    </h:body>
+</html>

@@ -1,0 +1,116 @@
+/*
+ * To change this template, choose Tools | Templates
+ * and open the template in the editor.
+ */
+package com.pfc.sensormando.entity;
+
+import java.io.Serializable;
+import javax.persistence.Basic;
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.FetchType;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
+import javax.persistence.NamedQueries;
+import javax.persistence.NamedQuery;
+import javax.persistence.Table;
+import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Size;
+import javax.xml.bind.annotation.XmlRootElement;
+
+/**
+ *
+ * @author Raul
+ */
+@Entity
+@Table(name = "MANDO")
+@XmlRootElement
+@NamedQueries({
+    @NamedQuery(name = "Mando.findAll", query = "SELECT m FROM Mando m"),
+    @NamedQuery(name = "Mando.findById", query = "SELECT m FROM Mando m WHERE m.id = :id"),
+    @NamedQuery(name = "Mando.findByDireccion", query = "SELECT m FROM Mando m WHERE m.direccion = :direccion"),
+    @NamedQuery(name = "Mando.findByNombre", query = "SELECT m FROM Mando m WHERE m.nombre = :nombre")})
+public class Mando implements Serializable {
+
+    private static final long serialVersionUID = 1L;
+    @Id
+    @GeneratedValue(strategy = GenerationType.TABLE)
+    @Basic(optional = false)
+    @Column(name = "ID")
+    private Integer id;
+    @Column(name = "DIRECCION")
+    private Integer direccion;
+    @Size(max = 20)
+    @Column(name = "NOMBRE")
+    private String nombre;
+    @JoinColumn(name = "ID_RECEPTOR", referencedColumnName = "ID")
+    @ManyToOne(optional = false, fetch = FetchType.LAZY)
+    private Receptor idReceptor;
+
+    public Mando() {
+    }
+
+    public Mando(Integer id) {
+        this.id = id;
+    }
+
+    public Integer getId() {
+        return id;
+    }
+
+    public void setId(Integer id) {
+        this.id = id;
+    }
+
+    public Integer getDireccion() {
+        return direccion;
+    }
+
+    public void setDireccion(Integer direccion) {
+        this.direccion = direccion;
+    }
+
+    public String getNombre() {
+        return nombre;
+    }
+
+    public void setNombre(String nombre) {
+        this.nombre = nombre;
+    }
+
+    public Receptor getIdReceptor() {
+        return idReceptor;
+    }
+
+    public void setIdReceptor(Receptor idReceptor) {
+        this.idReceptor = idReceptor;
+    }
+
+    @Override
+    public int hashCode() {
+        int hash = 0;
+        hash += (id != null ? id.hashCode() : 0);
+        return hash;
+    }
+
+    @Override
+    public boolean equals(Object object) {
+        // TODO: Warning - this method won't work in the case the id fields are not set
+        if (!(object instanceof Mando)) {
+            return false;
+        }
+        Mando other = (Mando) object;
+        if ((this.id == null && other.id != null) || (this.id != null && !this.id.equals(other.id))) {
+            return false;
+        }
+        return true;
+    }
+
+    @Override
+    public String toString() {
+        return "com.pfc.sensormando.entity.Mando[ id=" + id + " ]";
+    }
+}
