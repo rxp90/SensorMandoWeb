@@ -1,0 +1,50 @@
+<?xml version='1.0' encoding='UTF-8' ?> 
+<!DOCTYPE html>
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:ui="http://java.sun.com/jsf/facelets"
+                xmlns:h="http://java.sun.com/jsf/html"
+                xmlns:f="http://java.sun.com/jsf/core">
+
+    <h:form id="formCrearReceptor" class="form-horizontal">
+        <h:panelGroup id="nombreReceptorPanel" layout="block" styleClass="#{(!nombreReceptorInput.valid) ?'control-group error':'control-group'}">
+            <h:outputLabel value="Nombre" for="nombreReceptorInput" class="control-label"/>
+            <div class="controls">
+                <div class="input-prepend">
+                    <span class="add-on"><i class="icon-info-sign"></i></span>         
+                    <h:inputText binding="#{nombreReceptorInput}" value="#{administrarRedBean.receptor.nombre}" id="nombreReceptorInput" required="true"/>
+                </div>
+                <h:message class="help-inline" for="nombreReceptorInput"/>
+            </div>
+        </h:panelGroup>
+        <h:panelGroup id="direccionReceptorPanel" layout="block" styleClass="#{(!direccionReceptorInput.valid) ?'control-group error':'control-group'}">
+            <h:outputLabel value="Dirección" for="direccionReceptorInput" class="control-label"/>
+            <div class="controls">
+                <div class="input-prepend">
+                    <span class="add-on"><i class="icon-bullhorn"></i></span>         
+                    <h:inputText binding="#{direccionReceptorInput}" value="#{administrarRedBean.receptor.direccion}" id="direccionReceptorInput" required="true"/>
+                </div>
+                <h:message class="help-inline" for="direccionReceptorInput"/>
+            </div>
+        </h:panelGroup>  
+        <div class="control-group">
+            <h:outputLabel value="Selecciona una red" for="redReceptorInput" class="control-label"/>
+            <div class="controls">                     
+                <h:selectOneMenu value="#{administrarRedBean.idRedSeleccionado}" id="redReceptorInput">
+                    <f:selectItems value="#{administrarRedBean.redes}" var="redLista" itemLabel="#{redLista.nombre}" itemValue="#{redLista.id}"/>
+                </h:selectOneMenu>
+            </div>
+        </div>          
+        <h:panelGroup layout="block" class="alert alert-warning" rendered="#{empty administrarRedBean.redes}">
+            <h4 class="alert-heading">        
+                <h:outputText value="No hay redes."/>
+            </h4>
+            <h:outputText value="Antes de crear un receptor necesitas crear una red a la que asociarlo."/>
+        </h:panelGroup>            
+        <div class="btn-group pull-right">
+            <h:commandButton type="submit"  disabled="#{empty administrarRedBean.redes}"  class="btn btn-large btn-primary" action="#{administrarRedBean.crearReceptor()}" value="Crear receptor">
+                <f:ajax execute="@form" render=":administrarRed"/>
+            </h:commandButton>
+            <h:commandButton type="reset" class="btn btn-large" value="Limpiar"/>
+        </div>
+    </h:form>
+</ui:composition>
