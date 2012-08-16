@@ -1,0 +1,19 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:h="http://java.sun.com/jsf/html">
+    <h:body>
+        <ui:composition template="/WEB-INF/templates/layout.xhtml">
+            <ui:define name="content">
+                <div class="span9">
+                    <h:form>
+                        <div class="hero-unit">
+                            <h1><h:outputText value="Bienvenido #{userControllerBean.usuario.username}"/></h1>
+                            <p>Ésta es tu página personal. A la izquierda tienes un menú con todas las acciones que puedes usar. ¡Tú eliges!</p>
+                        </div>
+                    </h:form>
+                </div> 
+            </ui:define>
+        </ui:composition>
+    </h:body>
+</html>

@@ -1,0 +1,52 @@
+<?xml version='1.0' encoding='UTF-8' ?> <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:f="http://java.sun.com/jsf/core">
+    <f:loadBundle basename="com.pfc.sensormando.resources.messages" var="msg"/>
+    <head>
+        <title>Sensor Mando</title>
+        <meta name="description" content="Aplicación web Sensor Mando" />
+        <meta name="author" content="Raúl García" />
+        <!--  [if lt IE 9]-->
+        <script src="http://html5shim.googlecode.com/svn/trunk/html5.js"></script>
+        <!-- [endif] -->
+        <link href="bootstrap/css/bootstrap.min.css" rel="stylesheet"/>
+        <style>
+            body { padding-top: 60px; }
+        </style>
+        <link href="bootstrap/css/bootstrap-responsive.min.css" rel="stylesheet"/>
+
+    </head>
+
+    <body>
+
+        <div class="navbar navbar-fixed-top">
+            <div class="navbar-inner">
+                <div class="container-fluid">
+                    <ui:include src="navbar.xhtml" />
+                </div>
+            </div>
+        </div>
+
+        <div class="container-fluid">
+            <div class="row-fluid">
+                <div class="span2">
+                    <ui:include src="sidebar.xhtml"/>
+                    <!--/.well -->
+                </div>
+                <div class="span10">
+                    <ui:include src="index.xhtml" />
+                </div>
+            </div>
+        </div>
+
+
+        <footer id="footer">
+            <ui:include src="footer.xhtml"/>
+        </footer>
+        <script
+        src="https://ajax.googleapis.com/ajax/libs/jquery/1.7.2/jquery.min.js"></script>
+        <script src="bootstrap/js/bootstrap.min.js"></script>
+    </body>
+
+</html>
