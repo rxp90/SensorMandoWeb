@@ -6,6 +6,7 @@ package com.pfc.sensormando.beans;
 
 import com.pfc.sensormando.entity.Usuarios;
 import com.pfc.sensormando.facades.UsuariosFacadeLocal;
+import javax.annotation.PostConstruct;
 import javax.ejb.EJB;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ManagedProperty;
@@ -33,7 +34,13 @@ public class ModificarPerfilBean {
      * Creates a new instance of ModificarPerfilBean
      */
     public ModificarPerfilBean() {
+    }
+
+    @PostConstruct
+    public void init() {
+        // La inyección de dependencia se hace tras construir el Bean.
         this.usuario = userControllerBean.getUsuario();
+
     }
 
     public void actualizaUsuario() {

@@ -27,6 +27,7 @@ public interface RedFacadeLocal {
 
     List<Red> findRange(int[] range);
 
+    List<Red> findByParameters(Integer id, Integer canal, Integer idRed, String ip, String nombre, Integer puerto);
+
     int count();
-    
 }

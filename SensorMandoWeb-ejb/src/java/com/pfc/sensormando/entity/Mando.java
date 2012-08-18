@@ -17,8 +17,10 @@ import javax.persistence.ManyToOne;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
 import javax.persistence.Table;
+import javax.persistence.UniqueConstraint;
 import javax.validation.constraints.Max;
 import javax.validation.constraints.Min;
+import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 
 /**
@@ -26,7 +28,8 @@ import javax.validation.constraints.Size;
  * @author Raul
  */
 @Entity
-@Table(name = "MANDO")
+@Table(name = "MANDO", uniqueConstraints =
+@UniqueConstraint(columnNames = {"DIRECCION", "ID_RECEPTOR"}))
 @NamedQueries({
     @NamedQuery(name = "Mando.findAll", query = "SELECT m FROM Mando m"),
     @NamedQuery(name = "Mando.findById", query = "SELECT m FROM Mando m WHERE m.id = :id"),
@@ -42,11 +45,16 @@ public class Mando implements Serializable {
     private Integer id;
     @Min(value = 0)
     @Max(value = 65535)
+    @Basic(optional = false)
+    @NotNull
     @Column(name = "DIRECCION")
     private Integer direccion;
+    @Basic(optional = false)
+    @NotNull
     @Size(max = 20)
     @Column(name = "NOMBRE")
     private String nombre;
+    @NotNull
     @JoinColumn(name = "ID_RECEPTOR", referencedColumnName = "ID")
     @ManyToOne(optional = false, fetch = FetchType.EAGER)
     private Receptor idReceptor;

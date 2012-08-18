@@ -20,8 +20,10 @@ import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
+import javax.persistence.UniqueConstraint;
 import javax.validation.constraints.Max;
 import javax.validation.constraints.Min;
+import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 
 /**
@@ -29,7 +31,8 @@ import javax.validation.constraints.Size;
  * @author Raul
  */
 @Entity
-@Table(name = "RECEPTOR")
+@Table(name = "RECEPTOR", uniqueConstraints =
+@UniqueConstraint(columnNames = {"DIRECCION", "RED"}))
 @NamedQueries({
     @NamedQuery(name = "Receptor.findAll", query = "SELECT r FROM Receptor r"),
     @NamedQuery(name = "Receptor.findById", query = "SELECT r FROM Receptor r WHERE r.id = :id"),
@@ -45,11 +48,16 @@ public class Receptor implements Serializable {
     private Integer id;
     @Min(value = 0)
     @Max(value = 65535)
+    @Basic(optional = false)
+    @NotNull
     @Column(name = "DIRECCION")
     private Integer direccion;
+    @Basic(optional = false)
+    @NotNull
     @Size(max = 20)
     @Column(name = "NOMBRE")
     private String nombre;
+    @NotNull
     @JoinColumn(name = "RED", referencedColumnName = "ID")
     @ManyToOne(fetch = FetchType.EAGER)
     private Red red;

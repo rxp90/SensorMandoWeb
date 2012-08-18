@@ -8,13 +8,16 @@
                 <h:outputScript name="configuradorApplet.js" />
                 <div class="span8">
                     <script>
-                        deployJava.runApplet({
-                            id : 'juego',
-                            archive : "Client.jar",
-                            code : "com/pfc/ball/StartingPoint.class",
-                            width : "600",
-                            Height : "400"
-                        }, null, "1.7");
+                        var attributes = {
+                            id: "juego",
+                            code:       "com.pfc.ball.StartingPoint",
+                            archive:    "resources/WebGame.jar, resources/lib/UtilidadesArduino.jar",
+                            width:      600,
+                            height:     400
+                        };
+                        var parameters = {jnlp_href:"resources/launch.jnlp"}; <!-- Applet Parameters -->
+                        var version = "1.7"; <!-- Required Java Version -->
+                        deployJava.runApplet(attributes, parameters, version);
                     </script>
                     <div class="row-fluid">
                         <div class="span6">

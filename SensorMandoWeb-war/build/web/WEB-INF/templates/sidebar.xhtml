@@ -21,6 +21,11 @@
                         <i class="icon-play pull-left"/>
                     </h:link>
                 </li>
+                <li>
+                    <h:link value="Movie player" outcome="moviePlayer">
+                        <i class="icon-wrench pull-left"/>
+                    </h:link>
+                </li>
                 <h:panelGroup rendered="#{userControllerBean.admin}">
                     <li class="nav-header">Administrador</li>
                     <li>
@@ -38,6 +43,12 @@
                             <i class="icon-wrench pull-left"/>
                         </h:link>
                     </li>
+                    <li>
+                        <h:link value="Consultar red" outcome="consultarRed">
+                            <i class="icon-wrench pull-left"/>
+                        </h:link>
+                    </li>
+
                 </h:panelGroup>
                 <li class="divider"></li>
                 <li>        

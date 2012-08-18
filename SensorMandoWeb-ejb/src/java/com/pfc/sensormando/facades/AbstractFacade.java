@@ -8,6 +8,9 @@ import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.persistence.EntityManager;
+import javax.persistence.criteria.CriteriaBuilder;
+import javax.persistence.criteria.CriteriaQuery;
+import javax.persistence.criteria.Predicate;
 
 /**
  *
@@ -71,6 +74,13 @@ public abstract class AbstractFacade<T> {
         javax.persistence.criteria.CriteriaQuery cq = getEntityManager().getCriteriaBuilder().createQuery();
         cq.select(cq.from(entityClass));
         return getEntityManager().createQuery(cq).getResultList();
+    }
+
+    public List<T> findByParameters(Predicate... predicates) {
+        CriteriaBuilder criteriaBuilder = getEntityManager().getCriteriaBuilder();
+        CriteriaQuery criteriaQuery = criteriaBuilder.createQuery();
+        criteriaQuery.where(criteriaBuilder.and(predicates));
+        return getEntityManager().createQuery(criteriaQuery).getResultList();
     }
 
     public List<T> findRange(int[] range) {

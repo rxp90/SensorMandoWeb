@@ -6,25 +6,24 @@ package com.pfc.sensormando.beans;
 
 import com.pfc.sensormando.entity.Usuarios;
 import com.pfc.sensormando.facades.UsuariosFacadeLocal;
-//import com.pfc.sensormando.hibernate.Helper;
 import java.io.Serializable;
 import java.util.List;
 import javax.annotation.PostConstruct;
 import javax.ejb.EJB;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ManagedProperty;
-import javax.faces.bean.RequestScoped;
+import javax.faces.bean.ViewScoped;
 
 /**
  *
  * @author Raul
  */
 @ManagedBean
-@RequestScoped
+@ViewScoped
 public class AdministrarUsuariosBean implements Serializable {
+
     @EJB
     private UsuariosFacadeLocal usuariosFacade;
-
     @ManagedProperty(value = "#{userControllerBean}")
     private UserControllerBean userControllerBean;
     private String stringUsuario;
@@ -32,6 +31,7 @@ public class AdministrarUsuariosBean implements Serializable {
     private int exito;
     private final int CORRECTO = 1;
     private final int ERROR = -1;
+    private final int VACIO = -2;
     private List<Usuarios> usuarios;
 
     public void setUserControllerBean(UserControllerBean userControllerBean) {
@@ -46,10 +46,12 @@ public class AdministrarUsuariosBean implements Serializable {
 
     @PostConstruct
     public void init() {
-       // helper = new Helper();
-        this.usuarios = usuariosFacade.findAllDistinct(userControllerBean.getUsuario());
+        Usuarios usuarioSesion = userControllerBean.getUsuario();
+        this.usuarios = usuariosFacade.findAllDistinct(usuarioSesion);
         // Rellenamos los datos con el primer usuario.
-        this.usuario = usuarios.get(0);
+        if (usuarios.size() > 0) {
+            this.usuario = usuarios.get(0);
+        }
     }
 
     public List<Usuarios> getUsuarios() {
@@ -81,6 +83,8 @@ public class AdministrarUsuariosBean implements Serializable {
             } else {
                 exito = ERROR;
             }
+        } else {
+            exito = VACIO;
         }
     }
 
@@ -92,6 +96,8 @@ public class AdministrarUsuariosBean implements Serializable {
             } else {
                 exito = ERROR;
             }
+        } else {
+            exito = VACIO;
         }
     }
 
@@ -106,4 +112,9 @@ public class AdministrarUsuariosBean implements Serializable {
     public int getERROR() {
         return ERROR;
     }
+
+    public int getVACIO() {
+        return VACIO;
+    }
+    
 }

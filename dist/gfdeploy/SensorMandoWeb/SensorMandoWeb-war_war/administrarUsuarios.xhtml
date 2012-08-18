@@ -71,10 +71,10 @@
                                 </div>
                             </div>
                             <div class="btn-group pull-right">
-                                <h:commandButton type="submit" class="btn btn-large btn-primary" action="#{administrarUsuariosBean.modificarUsuario()}" value="Modificar">
+                                <h:commandButton type="submit" class="btn btn-large btn-primary" action="#{administrarUsuariosBean.modificarUsuario()}" value="Modificar" disabled="#{administrarUsuariosBean.usuario eq null}">
                                     <f:ajax execute="@form" render="formAdministrarUsuarios"/>
                                 </h:commandButton>
-                                <h:commandButton type="button" class="btn btn-large btn-warning" action="#{administrarUsuariosBean.eliminarUsuario()}" value="Eliminar usuario" onclick="return confirm('¿Está seguro de que desea borrar el usuario?');">
+                                <h:commandButton type="button" class="btn btn-large btn-warning" disabled="#{administrarUsuariosBean.usuario eq null}" action="#{administrarUsuariosBean.eliminarUsuario()}" value="Eliminar usuario" onclick="return confirm('¿Está seguro de que desea borrar el usuario?');">
                                     <f:ajax execute="@form" render="formAdministrarUsuarios"/>
                                 </h:commandButton>
                                 <h:commandButton type="reset" class="btn btn-large" value="Restaurar"/>
@@ -94,7 +94,12 @@
                             </h4>
                             <h:outputText value="La operación se realizó con éxito."/>
                         </h:panelGroup>
-
+                        <h:panelGroup layout="block" class="alert alert-warning" rendered="#{administrarUsuariosBean.usuario eq null}">
+                            <h4 class="alert-heading">        
+                                <h:outputText value="¡Ups!"/>
+                            </h4>
+                            <h:outputText value="No hay ningún usuario seleccionado. Si no aparece nadie en la lista es posible que seas el único usuario del sistema."/>
+                        </h:panelGroup>
                     </div>
                 </h:form>
             </ui:define>

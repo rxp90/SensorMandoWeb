@@ -10,10 +10,14 @@ import com.pfc.sensormando.entity.Red;
 import com.pfc.sensormando.facades.MandoFacadeLocal;
 import com.pfc.sensormando.facades.ReceptorFacadeLocal;
 import com.pfc.sensormando.facades.RedFacadeLocal;
+import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.Set;
 import java.util.List;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.ejb.EJB;
+import javax.ejb.EJBException;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.RequestScoped;
 
@@ -40,6 +44,8 @@ public class AdministrarRedBean {
     private int exito;
     private final int CORRECTO = 1;
     private final int ERROR = -1;
+    private static final Logger logger = Logger.getLogger(AdministrarRedBean.class.getName());
+    private List<Red> redesBusqueda;
 
     /**
      * Creates a new instance of AdministrarRedBean
@@ -57,12 +63,17 @@ public class AdministrarRedBean {
 
             Set<Mando> mandosReceptor = receptorSeleccionado.getMandoSet();
             mandosReceptor.add(mando);
-
-            if (mandoFacade.create(mando)) {
-                exito = CORRECTO;
-            } else {
+            try {
+                if (mandoFacade.create(mando)) {
+                    exito = CORRECTO;
+                } else {
+                    exito = ERROR;
+                }
+            } catch (EJBException e) {
                 exito = ERROR;
+                logger.log(Level.SEVERE, "Error de persistencia {0}", e.getMessage());
             }
+
         }
     }
 
@@ -76,10 +87,15 @@ public class AdministrarRedBean {
 
     public void crearRed() {
         if (red != null) {
-            if (redFacade.create(red)) {
-                exito = CORRECTO;
-            } else {
+            try {
+                if (redFacade.create(red)) {
+                    exito = CORRECTO;
+                } else {
+                    exito = ERROR;
+                }
+            } catch (EJBException e) {
                 exito = ERROR;
+                logger.log(Level.SEVERE, "Error de persistencia {0}", e.getMessage());
             }
         }
     }
@@ -90,11 +106,22 @@ public class AdministrarRedBean {
             receptor.setRed(redSeleccionada);
             Set<Receptor> receptoresRed = redSeleccionada.getReceptorSet();
             receptoresRed.add(receptor);
-            if (receptorFacade.create(receptor)) {
-                exito = CORRECTO;
-            } else {
+            try {
+                if (receptorFacade.create(receptor)) {
+                    exito = CORRECTO;
+                } else {
+                    exito = ERROR;
+                }
+            } catch (EJBException e) {
                 exito = ERROR;
+                logger.log(Level.SEVERE, "Error de persistencia {0}", e.getMessage());
             }
+        }
+    }
+
+    public void buscarRed() {
+        if (red != null) {
+            redesBusqueda = redFacade.findByParameters(red.getId(), null, null, null, null, null);
         }
     }
 
@@ -148,5 +175,9 @@ public class AdministrarRedBean {
 
     public void setIdReceptorSeleccionado(Integer idReceptorSeleccionado) {
         this.idReceptorSeleccionado = idReceptorSeleccionado;
+    }
+
+    public List<Red> getRedesBusqueda() {
+        return redesBusqueda;
     }
 }

@@ -6,6 +6,8 @@ package com.pfc.sensormando.validators;
 
 import com.pfc.sensormando.beans.UserControllerBean;
 import com.pfc.sensormando.entity.Usuarios;
+import com.pfc.sensormando.facades.UsuariosFacadeLocal;
+import javax.ejb.EJB;
 import javax.faces.application.FacesMessage;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ManagedProperty;
@@ -27,6 +29,8 @@ import javax.faces.validator.ValidatorException;
 @RequestScoped
 public class NewPasswordValidator implements Validator {
 
+    @EJB
+    private UsuariosFacadeLocal usuariosFacade;
     @ManagedProperty(value = "#{userControllerBean}")
     private UserControllerBean userControllerBean;
     private UIInput newPasswordComponent;
@@ -56,18 +60,18 @@ public class NewPasswordValidator implements Validator {
         this.newPasswordValue = newPasswordValue;
     }
 
-//    public void changePassword() {
-//        if (userControllerBean.isLoggedIn()) {
-//            Usuarios user = userControllerBean.getUsuario();
-//            user.setPassword(newPasswordValue);
-//            boolean exito = userControllerBean.actualizaUsuario();
-//            if (exito) {
-//                resultado = CORRECTO;
-//            } else {
-//                resultado = ERROR;
-//            }
-//        }
-//    }
+    public void changePassword() {
+        if (userControllerBean.isLoggedIn()) {
+            Usuarios user = userControllerBean.getUsuario();
+            user.setPassword(newPasswordValue);
+            boolean exito = usuariosFacade.edit(user);
+            if (exito) {
+                resultado = CORRECTO;
+            } else {
+                resultado = ERROR;
+            }
+        }
+    }
 
     public int getResultado() {
         return resultado;
@@ -80,7 +84,7 @@ public class NewPasswordValidator implements Validator {
     public int getERROR() {
         return ERROR;
     }
-    
+
     @Override
     public void validate(FacesContext context, UIComponent component, Object value) throws ValidatorException {
         String repeatedPassword = (String) value;

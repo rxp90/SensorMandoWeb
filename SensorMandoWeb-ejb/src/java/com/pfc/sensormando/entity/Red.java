@@ -53,13 +53,13 @@ public class Red implements Serializable {
     //0x0B - 0x1A
     @Min(value = 11)
     @Max(value = 26)
-    private int canal;
+    private Integer canal;
     @Basic(optional = false)
     @NotNull
     @Column(name = "ID_RED")
     @Min(value = 0)
     @Max(value = 65535)
-    private int idRed;
+    private Integer idRed;
     @Basic(optional = false)
     @NotNull
     //@Size(min = 1, max = 20)
@@ -87,7 +87,7 @@ public class Red implements Serializable {
         this.id = id;
     }
 
-    public Red(Integer id, int canal, int idRed, String ip, String nombre, Integer puerto) {
+    public Red(Integer id, Integer canal, Integer idRed, String ip, String nombre, Integer puerto) {
         this.id = id;
         this.canal = canal;
         this.idRed = idRed;
@@ -104,19 +104,19 @@ public class Red implements Serializable {
         this.id = id;
     }
 
-    public int getCanal() {
+    public Integer getCanal() {
         return canal;
     }
 
-    public void setCanal(int canal) {
+    public void setCanal(Integer canal) {
         this.canal = canal;
     }
 
-    public int getIdRed() {
+    public Integer getIdRed() {
         return idRed;
     }
 
-    public void setIdRed(int idRed) {
+    public void setIdRed(Integer idRed) {
         this.idRed = idRed;
     }
 
@@ -154,7 +154,7 @@ public class Red implements Serializable {
 
     @Override
     public int hashCode() {
-        int hash = 0;
+        Integer hash = 0;
         hash += (id != null ? id.hashCode() : 0);
         return hash;
     }
