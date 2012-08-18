@@ -25,8 +25,9 @@ public interface MandoFacadeLocal {
 
     List<Mando> findAll();
 
+    List<Mando> findByParameters(Integer id, Integer direccion, String nombre, Integer idReceptor);
+
     List<Mando> findRange(int[] range);
 
     int count();
-    
 }

@@ -34,7 +34,8 @@ import javax.validation.constraints.Size;
     @NamedQuery(name = "Mando.findAll", query = "SELECT m FROM Mando m"),
     @NamedQuery(name = "Mando.findById", query = "SELECT m FROM Mando m WHERE m.id = :id"),
     @NamedQuery(name = "Mando.findByDireccion", query = "SELECT m FROM Mando m WHERE m.direccion = :direccion"),
-    @NamedQuery(name = "Mando.findByNombre", query = "SELECT m FROM Mando m WHERE m.nombre = :nombre")})
+    @NamedQuery(name = "Mando.findByNombre", query = "SELECT m FROM Mando m WHERE m.nombre = :nombre"),
+    @NamedQuery(name = "Mando.findByReceptor", query = "SELECT m FROM Mando m WHERE m.idReceptor = :idReceptor")})
 public class Mando implements Serializable {
 
     private static final long serialVersionUID = 1L;

@@ -37,7 +37,8 @@ import javax.validation.constraints.Size;
     @NamedQuery(name = "Receptor.findAll", query = "SELECT r FROM Receptor r"),
     @NamedQuery(name = "Receptor.findById", query = "SELECT r FROM Receptor r WHERE r.id = :id"),
     @NamedQuery(name = "Receptor.findByDireccion", query = "SELECT r FROM Receptor r WHERE r.direccion = :direccion"),
-    @NamedQuery(name = "Receptor.findByNombre", query = "SELECT r FROM Receptor r WHERE r.nombre = :nombre")})
+    @NamedQuery(name = "Receptor.findByNombre", query = "SELECT r FROM Receptor r WHERE r.nombre = :nombre"),
+    @NamedQuery(name = "Receptor.findByRed", query = "SELECT r FROM Receptor r WHERE r.red = :red")})
 public class Receptor implements Serializable {
 
     private static final long serialVersionUID = 1L;
@@ -46,15 +47,15 @@ public class Receptor implements Serializable {
     @Basic(optional = false)
     @Column(name = "ID")
     private Integer id;
-    @Min(value = 0)
-    @Max(value = 65535)
     @Basic(optional = false)
     @NotNull
     @Column(name = "DIRECCION")
+    @Min(value = 0)
+    @Max(value = 65535)
     private Integer direccion;
     @Basic(optional = false)
     @NotNull
-    @Size(max = 20)
+    @Size(min = 1, max = 20)
     @Column(name = "NOMBRE")
     private String nombre;
     @NotNull

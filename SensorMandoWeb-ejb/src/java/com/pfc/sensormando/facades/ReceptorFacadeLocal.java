@@ -25,6 +25,8 @@ public interface ReceptorFacadeLocal {
 
     List<Receptor> findAll();
 
+    List<Receptor> findByParameters(Integer id, Integer direccion, String nombre, Integer idRed);
+
     List<Receptor> findRange(int[] range);
 
     int count();

@@ -46,6 +46,8 @@ public class AdministrarRedBean {
     private final int ERROR = -1;
     private static final Logger logger = Logger.getLogger(AdministrarRedBean.class.getName());
     private List<Red> redesBusqueda;
+    private List<Receptor> receptoresBusqueda;
+    private List<Mando> mandosBusqueda;
 
     /**
      * Creates a new instance of AdministrarRedBean
@@ -121,7 +123,19 @@ public class AdministrarRedBean {
 
     public void buscarRed() {
         if (red != null) {
-            redesBusqueda = redFacade.findByParameters(red.getId(), null, null, null, null, null);
+            redesBusqueda = redFacade.findByParameters(red.getId(), red.getCanal(), red.getIdRed(), red.getIp(), red.getNombre(), red.getPuerto());
+        }
+    }
+
+    public void buscarReceptor() {
+        if (receptor != null) {
+            receptoresBusqueda = receptorFacade.findByParameters(receptor.getId(), receptor.getDireccion(), receptor.getNombre(), idRedSeleccionado);
+        }
+    }
+
+    public void buscarMando() {
+        if (mando != null) {
+            receptoresBusqueda = receptorFacade.findByParameters(receptor.getId(), receptor.getDireccion(), receptor.getNombre(), idRedSeleccionado);
         }
     }
 
@@ -179,5 +193,13 @@ public class AdministrarRedBean {
 
     public List<Red> getRedesBusqueda() {
         return redesBusqueda;
+    }
+
+    public List<Receptor> getReceptoresBusqueda() {
+        return receptoresBusqueda;
+    }
+
+    public List<Mando> getMandosBusqueda() {
+        return mandosBusqueda;
     }
 }
