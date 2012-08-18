@@ -1,0 +1,65 @@
+<?xml version='1.0' encoding='UTF-8' ?> 
+<!DOCTYPE html>
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:ui="http://java.sun.com/jsf/facelets"
+                xmlns:h="http://java.sun.com/jsf/html"
+                xmlns:f="http://java.sun.com/jsf/core">
+    <h:form id="formCrearRed" class="form-horizontal">
+        <h:panelGroup id="nombrePanel" layout="block" styleClass="#{(!nombreInput.valid) ?'control-group error':'control-group'}">
+            <h:outputLabel value="Nombre" for="nombreInput" class="control-label"/>
+            <div class="controls">
+                <div class="input-prepend">
+                    <span class="add-on"><i class="icon-info-sign"></i></span>         
+                    <h:inputText binding="#{nombreInput}" value="#{administrarRedBean.red.nombre}" id="nombreInput" required="true"/>
+                </div>
+                <h:message class="help-inline" for="nombreInput"/>
+            </div>
+        </h:panelGroup>
+        <h:panelGroup id="idPanel" layout="block" styleClass="#{(!idInput.valid) ?'control-group error':'control-group'}">
+            <h:outputLabel value="ID" for="idInput" class="control-label"/>
+            <div class="controls">
+                <div class="input-prepend">
+                    <span class="add-on"><i class="icon-certificate"></i></span>         
+                    <h:inputText binding="#{idInput}" value="#{administrarRedBean.red.idRed}" id="idInput" required="true"/>
+                </div>
+                <h:message class="help-inline" for="idInput"/>
+            </div>
+        </h:panelGroup>
+        <h:panelGroup id="canalPanel" layout="block" styleClass="#{(!canalInput.valid) ?'control-group error':'control-group'}">
+            <h:outputLabel value="Canal" for="canalInput" class="control-label"/>
+            <div class="controls">
+                <div class="input-prepend">
+                    <span class="add-on"><i class="icon-bullhorn"></i></span>         
+                    <h:inputText binding="#{canalInput}" value="#{administrarRedBean.red.canal}" id="canalInput" required="true"/>
+                </div>
+                <h:message class="help-inline" for="canalInput"/>
+            </div>
+        </h:panelGroup>
+        <h:panelGroup id="puertoPanel" layout="block" styleClass="#{(!puertoInput.valid) ?'control-group error':'control-group'}">
+            <h:outputLabel value="Puerto" for="puertoInput" class="control-label"/>
+            <div class="controls">
+                <div class="input-prepend">
+                    <span class="add-on"><i class="icon-filter"></i></span>         
+                    <h:inputText binding="#{puertoInput}" value="#{administrarRedBean.red.puerto}" id="puertoInput" required="true"/>
+                </div>
+                <h:message class="help-inline" for="puertoInput"/>
+            </div>
+        </h:panelGroup>
+        <h:panelGroup id="ipPanel" layout="block" styleClass="#{(!ipInput.valid) ?'control-group error':'control-group'}">
+            <h:outputLabel value="IP" for="ipInput" class="control-label"/>
+            <div class="controls">
+                <div class="input-prepend">
+                    <span class="add-on"><i class="icon-globe"></i></span>         
+                    <h:inputText binding="#{ipInput}" value="#{administrarRedBean.red.ip}" id="ipInput" required="true"/>
+                </div>
+                <h:message class="help-inline" for="ipInput"/>
+            </div>
+        </h:panelGroup>
+        <div class="btn-group pull-right">
+            <h:commandButton type="submit" class="btn btn-large btn-primary" action="#{administrarRedBean.crearRed()}" value="Crear red">
+                <f:ajax execute="@form" render=":administrarRed"/>
+            </h:commandButton>
+            <h:commandButton type="reset" class="btn btn-large" value="Limpiar"/>
+        </div>
+    </h:form>
+</ui:composition>

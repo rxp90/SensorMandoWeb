@@ -1,0 +1,161 @@
+<?xml version='1.0' encoding='UTF-8' ?> 
+<!DOCTYPE html>
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:ui="http://java.sun.com/jsf/facelets"
+                xmlns:h="http://java.sun.com/jsf/html"
+                xmlns:f="http://java.sun.com/jsf/core">
+    <h:form id="formBuscarRed" class="form-horizontal">
+        <div class="row-fluid">
+
+            <div class="well span3">
+                <h3><h:outputText value="Filtro"/></h3>
+                <h:outputLabel value="Nombre" class="checkbox">
+                    <h:selectBooleanCheckbox binding="#{nombreRedCheck}">
+                        <f:ajax event="change" render="nombreInputBuscar"/>
+                    </h:selectBooleanCheckbox>
+                </h:outputLabel>
+                <h:outputLabel value="ID Red" class="checkbox">
+                    <h:selectBooleanCheckbox binding="#{idRedRedCheck}">
+                        <f:ajax event="change" render="idInputBuscar"/>
+                    </h:selectBooleanCheckbox>
+                </h:outputLabel>
+                <h:outputLabel value="Canal" class="checkbox">
+                    <h:selectBooleanCheckbox binding="#{canalRedCheck}">
+                        <f:ajax event="change" render="canalInputBuscar"/>
+                    </h:selectBooleanCheckbox>
+                </h:outputLabel>
+                <h:outputLabel value="Puerto" class="checkbox">
+                    <h:selectBooleanCheckbox binding="#{puertoRedCheck}">
+                        <f:ajax event="change" render="puertoInputBuscar"/>
+                    </h:selectBooleanCheckbox>
+                </h:outputLabel>
+                <h:outputLabel value="IP" class="checkbox">
+                    <h:selectBooleanCheckbox binding="#{ipRedCheck}">
+                        <f:ajax event="change" render="ipInputBuscar"/>
+                    </h:selectBooleanCheckbox>
+                </h:outputLabel>
+            </div>
+
+            <div class="span8">
+                <h:panelGroup id="nombrePanelBuscar" layout="block" styleClass="#{(!nombreInputBuscar.valid) ?'control-group error':'control-group'}">
+                    <h:outputLabel value="Nombre" for="nombreInputBuscar" class="control-label"/>
+                    <div class="controls">
+                        <div class="input-prepend">
+                            <span class="add-on"><i class="icon-info-sign"></i></span>         
+                            <h:inputText 
+                                binding="#{nombreInputBuscar}" 
+                                value="#{administrarRedBean.red.nombre}" 
+                                id="nombreInputBuscar" 
+                                required="false" 
+                                styleClass="#{(nombreRedCheck.value)? '' : 'disabled'}"
+                                disabled="#{!nombreRedCheck.value}"/>                  
+                        </div>
+                        <h:message class="help-inline" for="nombreInputBuscar"/>
+                    </div>  
+                </h:panelGroup>
+                <h:panelGroup id="idPanelBuscar" layout="block" styleClass="#{(!idInputBuscar.valid) ?'control-group error':'control-group'}">
+                    <h:outputLabel value="ID" for="idInputBuscar" class="control-label"/>
+                    <div class="controls">
+                        <div class="input-prepend">
+                            <span class="add-on"><i class="icon-certificate"></i></span>         
+                            <h:inputText binding="#{idInputBuscar}" value="#{administrarRedBean.red.idRed}" id="idInputBuscar" required="false" styleClass="#{(idRedRedCheck.value)? '' : 'disabled'}" disabled="#{!idRedRedCheck.value}"/>
+                        </div>
+                        <h:message class="help-inline" for="idInputBuscar"/>
+                    </div>
+                </h:panelGroup>
+                <h:panelGroup id="canalPanelBuscar" layout="block" styleClass="#{(!canalInputBuscar.valid) ?'control-group error':'control-group'}">
+                    <h:outputLabel value="Canal" for="canalInputBuscar" class="control-label"/>
+                    <div class="controls">
+                        <div class="input-prepend">
+                            <span class="add-on"><i class="icon-bullhorn"></i></span>         
+                            <h:inputText binding="#{canalInputBuscar}" value="#{administrarRedBean.red.canal}" id="canalInputBuscar" required="false" styleClass="#{(canalRedCheck.value)? '' : 'disabled'}" disabled="#{!canalRedCheck.value}"/>
+                        </div>
+                        <h:message class="help-inline" for="canalInputBuscar"/>
+                    </div>
+                </h:panelGroup>
+                <h:panelGroup id="puertoPanelBuscar" layout="block" styleClass="#{(!puertoInputBuscar.valid) ?'control-group error':'control-group'}">
+                    <h:outputLabel value="Puerto" for="puertoInputBuscar" class="control-label"/>
+                    <div class="controls">
+                        <div class="input-prepend">
+                            <span class="add-on"><i class="icon-filter"></i></span>         
+                            <h:inputText binding="#{puertoInputBuscar}" value="#{administrarRedBean.red.puerto}" id="puertoInputBuscar" required="false" styleClass="#{(puertoRedCheck.value)? '' : 'disabled'}" disabled="#{!puertoRedCheck.value}"/>
+                        </div>
+                        <h:message class="help-inline" for="puertoInputBuscar"/>
+                    </div>
+                </h:panelGroup>
+                <h:panelGroup id="ipPanelBuscar" 
+                              layout="block" 
+                              styleClass="#{(!ipInputBuscar.valid) ?'control-group error':'control-group'}">
+                    <h:outputLabel value="IP" for="ipInputBuscar" class="control-label"/>
+                    <div class="controls">
+                        <div class="input-prepend">
+                            <span class="add-on"><i class="icon-globe"></i></span>         
+                            <h:inputText binding="#{ipInputBuscar}" value="#{administrarRedBean.red.ip}" id="ipInputBuscar" required="false" styleClass="#{(ipRedCheck.value)? '' : 'disabled'}" disabled="#{!ipRedCheck.value}"/>
+                        </div>
+                        <h:message class="help-inline" for="ipInputBuscar"/>
+                    </div>
+                </h:panelGroup>
+                <div class="btn-group pull-right">
+                    <h:commandLink class="btn btn-large btn-primary" action="#{administrarRedBean.buscarRed()}" value="Buscar red">
+                        <f:ajax execute="@form" render="formBuscarRed"/>
+                    </h:commandLink>
+                    <h:commandButton type="reset" class="btn btn-large" value="Limpiar"/>
+                </div>
+            </div>
+
+        </div>  
+        <div class="row-fluid span10"/>
+        <div class="row-fluid">
+            <h:panelGroup id="resultadosBusquedaRed" rendered="#{administrarRedBean.redesBusqueda ne null}" class="container-fluid" layout="block">
+                <h3 class="span12"><h:outputText value="Resultados de la búsqueda: #{administrarRedBean.redesBusqueda.size()}"/></h3>
+
+                <h:dataTable value="#{administrarRedBean.redesBusqueda}" var="red" class="table table-striped table-bordered" rendered="#{!empty administrarRedBean.redesBusqueda}">
+                    <h:column>
+                        <f:facet name="header">
+                            <h:outputText value="ID" />
+                        </f:facet> 
+                        <h:outputText value="#{red.id}"></h:outputText>
+                    </h:column>
+                    <h:column>
+                        <f:facet name="header">
+                            <h:outputText value="Nombre" />
+                        </f:facet> 
+                        <h:outputText value="#{red.nombre}"></h:outputText>
+                    </h:column>
+                    <h:column>
+                        <f:facet name="header">
+                            <h:outputText value="ID Red XBee" />
+                        </f:facet> 
+                        <h:outputText value="#{red.idRed}"></h:outputText>
+                    </h:column>
+                    <h:column>
+                        <f:facet name="header">
+                            <h:outputText value="Canal" />
+                        </f:facet> 
+                        <h:outputText value="#{red.canal}"></h:outputText>
+                    </h:column>
+                    <h:column>
+                        <f:facet name="header">
+                            <h:outputText value="Puerto" />
+                        </f:facet> 
+                        <h:outputText value="#{red.puerto}"></h:outputText>
+                    </h:column>
+                    <h:column>
+                        <f:facet name="header">
+                            <h:outputText value="IP" />
+                        </f:facet> 
+                        <h:outputText value="#{red.ip}"></h:outputText>
+                    </h:column>
+                    <h:column>
+                        <f:facet name="header">
+                            <h:outputText value="Receptores" />
+                        </f:facet> 
+                        <h:selectOneMenu>
+                            <f:selectItems value="#{red.receptorSet}" var="receptoresRed" itemLabel="#{receptoresRed.nombre}"/> 
+                        </h:selectOneMenu>
+                    </h:column>
+                </h:dataTable>
+            </h:panelGroup>
+        </div>
+    </h:form>
+</ui:composition>

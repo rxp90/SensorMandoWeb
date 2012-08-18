@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:h="http://java.sun.com/jsf/html">
+    <h:body>
+        <ui:composition template="/WEB-INF/templates/layout.xhtml">
+            <ui:define name="content">
+                <h:panelGroup rendered="#{userControllerBean.admin}" id="consultarRed" layout="block" class="span9">
+                    <fieldset>
+                        <legend>Consultar red</legend>
+                        <ul class="nav nav-tabs">
+                            <li class="active"><a href="#buscarRed" data-toggle="tab">Buscar red</a></li>
+                            <li><a href="#buscarReceptor" data-toggle="tab">Buscar receptor</a></li>
+                            <li><a href="#buscarMando" data-toggle="tab">Buscar mando</a></li>
+                        </ul>
+                        <div class="tab-content">
+                            <div class="tab-pane active" id="buscarRed">
+                                <ui:insert name="buscarRed">
+                                    <ui:include src="WEB-INF/templates/buscarRed.xhtml"/>
+                                </ui:insert>
+                            </div>                            
+                            <div class="tab-pane" id="buscarReceptor">
+                                <ui:insert name="buscarReceptor">
+                                    <ui:include src="WEB-INF/templates/buscarReceptor.xhtml"/>
+                                </ui:insert> 
+                            </div>
+                            <div class="tab-pane" id="buscarMando">
+                                <ui:insert name="buscarMando">
+                                    <ui:include src="WEB-INF/templates/buscarMando.xhtml"/>
+                                </ui:insert>                               
+                            </div>
+                        </div>
+
+                    </fieldset>  
+                    <h:panelGroup id="mensajesError">
+                        <h:panelGroup layout="block" class="alert alert-error" rendered="#{administrarRedBean.exito eq administrarRedBean.ERROR}">
+                            <button type="button" class="close" data-dismiss="alert">×</button>
+                            <h4 class="alert-heading">        
+                                <h:outputText value="Error."/>
+                            </h4>
+                            <h:outputText value="Ocurrió un error al crear el objeto. Inténtelo de nuevo."/>
+                        </h:panelGroup>
+                        <h:panelGroup layout="block" class="alert alert-success" rendered="#{administrarRedBean.exito eq administrarRedBean.CORRECTO}">
+                            <button type="button" class="close" data-dismiss="alert">×</button>
+                            <h4 class="alert-heading">        
+                                <h:outputText value="¡Hurra!"/>
+                            </h4>
+                            <h:outputText value="La operación se realizó con éxito."/>
+                        </h:panelGroup>
+                    </h:panelGroup>
+                </h:panelGroup>
+            </ui:define>
+        </ui:composition>
+    </h:body>
+</html>

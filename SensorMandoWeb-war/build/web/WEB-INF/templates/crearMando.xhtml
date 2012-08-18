@@ -1,0 +1,49 @@
+<?xml version='1.0' encoding='UTF-8' ?> 
+<!DOCTYPE html>
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:ui="http://java.sun.com/jsf/facelets"
+                xmlns:h="http://java.sun.com/jsf/html"
+                xmlns:f="http://java.sun.com/jsf/core">
+    <h:form id="formCrearMando" class="form-horizontal">
+        <h:panelGroup id="nombreMandoPanel" layout="block" styleClass="#{(!nombreMandoInput.valid) ?'control-group error':'control-group'}">
+            <h:outputLabel value="Nombre" for="nombreMandoInput" class="control-label"/>
+            <div class="controls">
+                <div class="input-prepend">
+                    <span class="add-on"><i class="icon-info-sign"></i></span>         
+                    <h:inputText binding="#{nombreMandoInput}" value="#{administrarRedBean.mando.nombre}" id="nombreMandoInput" required="true"/>
+                </div>
+                <h:message class="help-inline" for="nombreMandoInput"/>
+            </div>
+        </h:panelGroup>
+        <h:panelGroup id="direccionMandoPanel" layout="block" styleClass="#{(!direccionMandoInput.valid) ?'control-group error':'control-group'}">
+            <h:outputLabel value="Dirección" for="direccionMandoInput" class="control-label"/>
+            <div class="controls">
+                <div class="input-prepend">
+                    <span class="add-on"><i class="icon-bullhorn"></i></span>         
+                    <h:inputText binding="#{direccionMandoInput}" value="#{administrarRedBean.mando.direccion}" id="direccionMandoInput" required="true"/>
+                </div>
+                <h:message class="help-inline" for="direccionMandoInput"/>
+            </div>
+        </h:panelGroup> 
+        <div class="control-group">
+            <h:outputLabel value="Selecciona un receptor" for="redReceptorInput" class="control-label"/>
+            <div class="controls">                     
+                <h:selectOneMenu value="#{administrarRedBean.idReceptorSeleccionado}" id="receptorMandoInput">
+                    <f:selectItems value="#{administrarRedBean.receptores}" var="receptorLista" itemLabel="#{receptorLista.nombre}" itemValue="#{receptorLista.id}"/>
+                </h:selectOneMenu>
+            </div>
+        </div>  
+        <h:panelGroup layout="block" class="alert alert-warning" rendered="#{empty administrarRedBean.receptores}">
+            <h4 class="alert-heading">        
+                <h:outputText value="No hay receptores."/>
+            </h4>
+            <h:outputText value="Antes de crear un mando necesitas crear un receptor al que asociarlo."/>
+        </h:panelGroup>    
+        <div class="btn-group pull-right">
+            <h:commandButton type="submit" disabled="#{empty administrarRedBean.receptores}" class="btn btn-large btn-primary" action="#{administrarRedBean.crearMando()}" value="Crear mando">
+                <f:ajax execute="@form" render=":administrarRed"/>
+            </h:commandButton>
+            <h:commandButton type="reset" class="btn btn-large" value="Limpiar"/>
+        </div>
+    </h:form>
+</ui:composition>
